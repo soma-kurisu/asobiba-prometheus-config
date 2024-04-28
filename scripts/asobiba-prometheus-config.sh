@@ -3,8 +3,8 @@
 # Set up variables for directory paths and repo
 CONFIG_REPO="https://github.com/soma-kurisu/asobiba-prometheus-config"
 PERSISTENT_CLONE_DIR="~/src/asobiba/asobiba-prometheus-config"
-PROMETHEUS_CONFIG_DIR="/usr/local/bin/prometheus"
-ALERTMANAGER_CONFIG_DIR="/usr/local/bin/alertmanager"
+PROMETHEUS_CONFIG_DIR="/opt/monitor/prometheus"
+ALERTMANAGER_CONFIG_DIR="/opt/monitor/alertmanager"
 
 # Clone the configuration repository if it doesn't exist
 if [ ! -d "$PERSISTENT_CLONE_DIR" ]; then

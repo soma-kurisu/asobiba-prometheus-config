@@ -36,20 +36,18 @@ sha256sum -c alertmanager.sha256
 sha256sum -c node_exporter.sha256
 ```
 
-### Step 3: Extract and Move to `/usr/local/bin`
+### Step 3: Extract and Move to `/opt/monitor`
 
-Now, extract the tarballs into the respective directories within `/usr/local/bin`.
+Now, extract the tarballs into the respective directories within `/opt/monitor`.
 
 ```bash
 # Create directories
-mkdir -p /usr/local/bin/prometheus
-mkdir -p /usr/local/bin/alertmanager
-mkdir -p /usr/local/bin/node_exporter
+mkdir -p /opt/monitor/{prometheus,alertmanager,node__exporter}
 
 # Extract files
-tar -xzf prometheus.tar.gz --strip-components=1 -C /usr/local/bin/prometheus
-tar -xzf alertmanager.tar.gz --strip-components=1 -C /usr/local/bin/alertmanager
-tar -xzf node_exporter.tar.gz --strip-components=1 -C /usr/local/bin/node_exporter
+tar -xzf prometheus.tar.gz --strip-components=1 -C /opt/monitor/prometheus
+tar -xzf alertmanager.tar.gz --strip-components=1 -C /opt/monitor/alertmanager
+tar -xzf node_exporter.tar.gz --strip-components=1 -C /opt/monitor/node_exporter
 ```
 
 ### Step 4: Make Binaries Executable
@@ -58,14 +56,14 @@ Finally, you'll want to ensure that the binaries are executable.
 
 ```bash
 # Make binaries executable
-chmod +x /usr/local/bin/prometheus/prometheus
-chmod +x /usr/local/bin/alertmanager/alertmanager
-chmod +x /usr/local/bin/node_exporter/node_exporter
+chmod +x /opt/monitor/prometheus/prometheus
+chmod +x /opt/monitor/alertmanager/alertmanager
+chmod +x /opt/monitor/node_exporter/node_exporter
 ```
 
 ### Notes
 
-- Ensure you have the necessary permissions to write to `/usr/local/bin/`. If not, you may need to prepend `doas` or `sudo` to the `mkdir`, `tar`, and `chmod` commands.
+- Ensure you have the necessary permissions to write to `/opt/monitor/`. If not, you may need to prepend `doas` or `sudo` to the `mkdir`, `tar`, and `chmod` commands.
 - Always verify the SHA-256 checksums from a trusted source to ensure the integrity and authenticity of the files you download.
 - Replace the URLs and checksums with the actual values from the official Prometheus, Alertmanager, and Node Exporter github releases pages.
 
@@ -82,8 +80,8 @@ Here's a complete script that does the following:
 # Set up variables for directory paths and repo
 CONFIG_REPO="https://github.com/soma-kurisu/asobiba-prometheus-config"
 PERSISTENT_CLONE_DIR="~/src/asobiba/asobiba-prometheus-config"
-PROMETHEUS_CONFIG_DIR="/usr/local/bin/prometheus"
-ALERTMANAGER_CONFIG_DIR="/usr/local/bin/alertmanager"
+PROMETHEUS_CONFIG_DIR="/opt/monitor/prometheus"
+ALERTMANAGER_CONFIG_DIR="/opt/monitor/alertmanager"
 
 # Clone the configuration repository if it doesn't exist
 if [ ! -d "$PERSISTENT_CLONE_DIR" ]; then
