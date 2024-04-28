@@ -139,3 +139,58 @@ curl -sSL https://raw.githubusercontent.com/soma-kurisu/asobiba-prometheus-confi
 ```
 
 Eventually prepend the `bash` command with `doas` or `sudo` if higher privileges are needed.
+
+## Symlinking Prometheus, Alertmanager, and Node Exporter Binaries
+To ensure easy execution of the Prometheus tools from any location on your system, we will create symbolic links in `/usr/local/bin` for the main executables of Prometheus, Alertmanager, and Node Exporter. These applications have been installed in `/opt/monitor/`.
+
+### Prerequisites
+Ensure that you have the necessary permissions to create symbolic links in `/usr/local/bin`. Typically, you need to have root access to perform these operations.
+
+### Creating Symlinks
+Navigate to `/usr/local/bin` and create symlinks for the Prometheus binaries:
+
+1. **Prometheus**
+
+   ```bash
+   sudo ln -s /opt/monitor/prometheus/prometheus /usr/local/bin/prometheus
+   ```
+
+2. **Alertmanager**
+
+   Create a symlink for the Alertmanager binary:
+
+   ```bash
+   sudo ln -s /opt/monitor/alertmanager/alertmanager /usr/local/bin/alertmanager
+   ```
+
+3. **Node Exporter**
+
+   And for the Node Exporter as well:
+
+   ```bash
+   sudo ln -s /opt/monitor/node_exporter/node_exporter /usr/local/bin/node_exporter
+   ```
+
+### Verification
+
+To verify that the symlinks have been created successfully, you can run the following commands:
+
+```bash
+ls -l /usr/local/bin/prometheus
+ls -l /usr/local/bin/alertmanager
+ls -l /usr/local/bin/node_exporter
+```
+
+Each command should output details of the symlink pointing to the respective binary in `/opt/monitor/`.
+
+### Running the Applications
+
+With the symlinks in place, you can now run `prometheus`, `alertmanager`, and `node_exporter` directly from the command line without specifying their full paths:
+
+```bash
+prometheus --version
+alertmanager --version
+node_exporter --version
+```
+
+These commands will display the version information for each application, indicating that the symlinks are functioning correctly.
