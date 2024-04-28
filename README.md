@@ -115,8 +115,6 @@ if [ -d "$PERSISTENT_CLONE_DIR" ]; then
 else
     echo "Failed to prepare the configuration repository."
 fi
-
-# End of script
 ```
 
 ### Explanation
