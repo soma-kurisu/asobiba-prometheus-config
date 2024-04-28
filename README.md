@@ -79,7 +79,7 @@ Here's a complete script that does the following:
 
 # Set up variables for directory paths and repo
 CONFIG_REPO="https://github.com/soma-kurisu/asobiba-prometheus-config"
-PERSISTENT_CLONE_DIR="~/src/asobiba/asobiba-prometheus-config"
+PERSISTENT_CLONE_DIR="$HOME/src/asobiba/asobiba-prometheus-config"
 PROMETHEUS_CONFIG_DIR="/opt/monitor/prometheus"
 ALERTMANAGER_CONFIG_DIR="/opt/monitor/alertmanager"
 
