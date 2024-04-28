@@ -147,20 +147,38 @@ To ensure easy execution of the Prometheus tools from any location on your syste
 Ensure that you have the necessary permissions to create symbolic links in `/usr/local/bin`. Typically, you need to have root access to perform these operations.
 
 ### Creating Symlinks
-Navigate to `/usr/local/bin` and create symlinks for the Prometheus binaries:
+Since the Prometheus tools are picky where to find their configuration files and we do not want to explicitly provide each configuration on the command line during startup either you can choose to first create good old wrapper scripts for each tool and then create the symlinks.
+
+You can find the wrapper scripts in the `scripts` directory of this repository.
+
+1. **exec bit**
+
+   Make sure that the wrapper scripts have the executable bit set.
+
+   ```bash
+   PERSISTENT_CLONE_DIR="$HOME/src/asobiba/asobiba-prometheus-config/scripts"
+   chmod u+x "$PERSISTENT_CLONE_DIR/prometheus.sh"
+   chmod u+x "$PERSISTENT_CLONE_DIR/alertmanager.sh"
+   chmod u+x "$PERSISTENT_CLONE_DIR/node_exporter.sh"
+   ```
+2. **Symlinks**
+
+   Create the symlinks: 
 
 1. **Prometheus**
 
+   We start by symlinking the Prometheus binary:
+
    ```bash
-   sudo ln -s /opt/monitor/prometheus/prometheus /usr/local/bin/prometheus
+   sudo ln -s $PERSISTENT_CLONE_DIR/prometheus.sh /usr/local/bin/prometheus
    ```
 
 2. **Alertmanager**
 
-   Create a symlink for the Alertmanager binary:
+   Follow by a symlink for the Alertmanager binary:
 
    ```bash
-   sudo ln -s /opt/monitor/alertmanager/alertmanager /usr/local/bin/alertmanager
+   sudo ln -s $PERSISTENT_CLONE_DIR/alertmanager.sh /usr/local/bin/alertmanager
    ```
 
 3. **Node Exporter**
@@ -168,7 +186,7 @@ Navigate to `/usr/local/bin` and create symlinks for the Prometheus binaries:
    And for the Node Exporter as well:
 
    ```bash
-   sudo ln -s /opt/monitor/node_exporter/node_exporter /usr/local/bin/node_exporter
+   sudo ln -s $PERSISTENT_CLONE_DIR/node_exporter.sh /usr/local/bin/node_exporter
    ```
 
 ### Verification
@@ -176,9 +194,7 @@ Navigate to `/usr/local/bin` and create symlinks for the Prometheus binaries:
 To verify that the symlinks have been created successfully, you can run the following commands:
 
 ```bash
-ls -l /usr/local/bin/prometheus
-ls -l /usr/local/bin/alertmanager
-ls -l /usr/local/bin/node_exporter
+ls -l /usr/local/bin/{prometheus,alertmanager,node_exporter}
 ```
 
 Each command should output details of the symlink pointing to the respective binary in `/opt/monitor/`.
