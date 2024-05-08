@@ -17,22 +17,28 @@ A `topk()` query only makes sense as an *instant query* where you get exactly *k
 The `topk(5, rate({...}[1h] @ end()))` acts as a ranking function, filtering only the higher values at the *end* of the evaluation interval.
 
 ```C
-// (1) start()-anchored
+# (1) start()-anchored
 rate(prometheus_http_requests_total[1m])
   and
-topk(5, rate(prometheus_http_requests_total[1h] @ start()))
+topk(5, 
+  rate(prometheus_http_requests_total[1h] @ start())
+)
 ```
 
 ```C
-// (2) end()-anchored
+# (2) end()-anchored
 rate(prometheus_http_requests_total[1m])
   and
-topk(5, rate(prometheus_http_requests_total[1h] @ end()))
+topk(5, 
+  rate(prometheus_http_requests_total[1h] @ end())
+)
 ```
 
 ```C
-// (3) non-anchored
+# (3) non-anchored
 rate(prometheus_http_requests_total[1m])
   and
-topk(5, rate(prometheus_http_requests_total[1h]))
+topk(5, 
+  rate(prometheus_http_requests_total[1h])
+)
 ```
