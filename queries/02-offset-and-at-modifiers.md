@@ -42,3 +42,21 @@ topk(5,
   rate(prometheus_http_requests_total[1h])
 )
 ```
+
+---
+Sample-queries around `_over_time()` function targeting specific timestamp, combining 
+- time-anchored, 
+- time-offset, and 
+- subquery
+together.
+
+```C
+# here the range-query takes instant-vectors / samples of 5m timespan
+# whereas the offset looks 2.5m back in time and into the future
+# practicaly centering the time-window around the specified timestamp
+max_over_time(
+  rate(
+    hello_worlds_total[5m] @1715970425.944 offset -2m30s
+  )[5m:30s]
+)
+```
